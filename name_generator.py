@@ -4,7 +4,7 @@ import streamlit as st
 import random
 import math
 import base64
-from mlp import MLP
+#from mlp import MLP
 
 # Adds a background image to the web-app
 def add_bg_from_local(image_file):
@@ -25,7 +25,7 @@ def add_bg_from_local(image_file):
 # Main
 if __name__ == '__main__':
     # Open saved MLP model from file
-    mlp = pickle.load(open('./mlp.obj', 'rb'))
+    #mlp = pickle.load(open('./mlp.obj', 'rb'))
 
     # Initialize generator with random seed
     g = torch.Generator().manual_seed(random.randint(1, 1000000))
@@ -54,7 +54,8 @@ if __name__ == '__main__':
         # If the button is pressed, generate names
         if generate_button:
             # Sample model for names
-            names = mlp.sample(num_input, g)
+            #names = mlp.sample(num_input, g)
+            names = ['liam.'] * 20
             # Format readable names
             names = [name[:-1].capitalize() for name in names]
             # Split names into column
