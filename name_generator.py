@@ -25,7 +25,7 @@ def add_bg_from_local(image_file):
 # Main
 if __name__ == '__main__':
     # Open saved MLP model from file
-    mlp = pickle.load(open('mlp.obj', 'rb'))
+    mlp = pickle.load(open('./mlp.obj', 'rb'))
 
     # Initialize generator with random seed
     g = torch.Generator().manual_seed(random.randint(1, 1000000))
