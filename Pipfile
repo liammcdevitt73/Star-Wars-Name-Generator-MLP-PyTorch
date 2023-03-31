@@ -8,6 +8,8 @@ streamlit = "*"
 pytorch-lightning = "*"
 watchdog = "*"
 torch = "*"
+torchvision = "*"
+torchaudio = "*"
 
 [dev-packages]
 
