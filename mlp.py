@@ -153,5 +153,10 @@ class MLP():
 if __name__ == '__main__':
     # Create MLP object
     mlp = MLP('names.txt')
-    # Save model to file
-    pickle.dump(mlp, open('./mlp.obj', 'wb'))
+    mlp_data = {
+        'parameters' : mlp.parameters,
+        'block_size' : mlp.block_size,
+        'itos'       : mlp.itos
+    }
+    # Save model data to file
+    pickle.dump(mlp_data, open('./mlp_data.pkl', 'wb'))
