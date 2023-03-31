@@ -151,6 +151,8 @@ class MLP():
         return samples
 
 if __name__ == '__main__':
+    # Don't use GPU 
+    device = torch.device("cpu")
     # Create MLP object
     mlp = MLP('names.txt')
     # Save model to file

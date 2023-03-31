@@ -24,6 +24,8 @@ def add_bg_from_local(image_file):
 
 # Main
 if __name__ == '__main__':
+    # Don't use GPU 
+    device = torch.device("cpu")
     # Open saved MLP model from file
     mlp = pickle.load(open('./mlp.obj', 'rb'))
 
