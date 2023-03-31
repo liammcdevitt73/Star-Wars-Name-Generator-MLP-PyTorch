@@ -5,7 +5,6 @@ import streamlit as st
 import random
 import math
 import base64
-from mlp import MLP
 
 class App:
 
