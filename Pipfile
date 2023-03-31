@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 streamlit = "*"
-torch = "*"
 pytorch-lightning = "*"
 watchdog = "*"
+torch = "*"
 
 [dev-packages]
 
