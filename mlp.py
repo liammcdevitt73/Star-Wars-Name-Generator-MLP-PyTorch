@@ -151,6 +151,8 @@ class MLP():
         return samples
 
 if __name__ == '__main__':
+    # Device to GPU if available, else CPU
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     # Create MLP object
     mlp = MLP('names.txt')
     mlp_data = {

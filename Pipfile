@@ -3,9 +3,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[[source]]
+url = "https://download.pytorch.org/whl/"
+verify_ssl = true
+name = "downloadpytorch"
+
 [packages]
 streamlit = "*"
-torch = "*"
+torch = {version = "==2.0.0+cu117", index = "downloadpytorch"}
 
 [dev-packages]
 
