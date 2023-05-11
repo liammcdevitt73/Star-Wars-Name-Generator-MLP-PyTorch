@@ -1,5 +1,3 @@
 dill==0.3.6
 streamlit==1.22.0
 torch==2.0.0
-pickle
-base64
