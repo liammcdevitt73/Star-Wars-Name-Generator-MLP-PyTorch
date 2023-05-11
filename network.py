@@ -148,9 +148,6 @@ class Network():
         # Evaluate Losses
         self.evaluate_loss()
 
-        # Sampling
-        self.sample(10)
-
     # Build the dataset
     def build_dataset(self, words):
         
