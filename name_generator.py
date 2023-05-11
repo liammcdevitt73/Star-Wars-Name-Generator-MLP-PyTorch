@@ -1,21 +1,15 @@
 import torch
 import torch.nn.functional as F
-import pickle
+import dill as pickle
 import streamlit as st
-import random
 import math
 import base64
 
 class App:
 
-    def __init__(self):
-        # Open saved MLP data from file
-        mlp_data = pickle.load(open('./mlp_data.pkl', 'rb'))
-
-        # Set object variables from the data
-        self.parameters = mlp_data['parameters']
-        self.block_size = mlp_data['block_size']
-        self.itos = mlp_data['itos']
+    def __init__(self, net):
+        # Set network object
+        self.net = net
 
         # Setup app
         self.web_app_setup()
@@ -49,7 +43,7 @@ class App:
             # If the button is pressed, generate names
             if generate_button:
                 # Sample model for names
-                names = self.sample(num_input)
+                names = self.net.sample(num_input)
                 # Format readable names
                 names = [name[:-1].capitalize() for name in names]
                 # Split names into column
@@ -77,44 +71,10 @@ class App:
         unsafe_allow_html=True
         )
 
-    # Sampling from the model
-    def sample(self, num_samples):
-
-        # Initialize generator with random seed
-        g = torch.Generator().manual_seed(random.randint(1, 1000000))
-
-        # Set specific model parameters
-        C = self.parameters[0]
-        W1 = self.parameters[1]
-        b1 = self.parameters[2]
-        W2 = self.parameters[3]
-        b2 = self.parameters[4]
-
-        # Holds generated names
-        samples = []
-
-        # Forward pass
-        for _ in range(num_samples):
-
-            out = []
-            context = [0] * self.block_size
-            while True:
-                emb = C[torch.tensor([context])] # (1, block_size, d)
-                h = torch.tanh(emb.view(1, -1) @ W1 + b1)
-                logits = h @ W2 + b2
-                probs = F.softmax(logits, dim = 1)
-                ix = torch.multinomial(probs, num_samples = 1, generator = g).item()
-                context = context[1:] + [ix]
-                out.append(ix)
-                if ix == 0:
-                    break
-            
-            samples.append(''.join(self.itos[i] for i in out))
-        return samples
-
 # Main
 if __name__ == '__main__':
     # Device to GPU if available, else CPU
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    
-    a = App()
+    # Open saved network object from file
+    net = pickle.load(open('./network_data.pkl', 'rb'))
+    a = App(net)
