@@ -346,11 +346,11 @@ class App:
 if __name__ == '__main__':
     # Device to GPU if available, else CPU
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    # if not(os.path.exists('./network_data.pkl')):
-    #     # Create network object
-    #     net = Network('names.txt')
-    #     # Save model data to file
-    #     pickle.dump(net, open('./network_data.pkl', 'wb'))
-    # # Open saved network object from file
-    # net = pickle.load(open('./network_data.pkl', 'rb'))
+    if not(os.path.exists('./network_data.pkl')):
+        # Create network object
+        net = Network('names.txt')
+        # Save model data to file
+        pickle.dump(net, open('./network_data.pkl', 'wb'))
+    # Open saved network object from file
+    net = pickle.load(open('./network_data.pkl', 'rb'))
     a = App(Network('names.txt'))
