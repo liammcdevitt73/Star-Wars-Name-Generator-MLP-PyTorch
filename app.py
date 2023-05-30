@@ -353,4 +353,4 @@ if __name__ == '__main__':
         pickle.dump(net, open('./network_data.pkl', 'wb'))
     # Open saved network object from file
     net = pickle.load(open('./network_data.pkl', 'rb'))
-    a = App(Network('names.txt'))
+    a = App(net)
