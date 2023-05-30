@@ -115,7 +115,7 @@ class Sequential:
         return [p for layer in self.layers for p in layer.parameters()]
 
 # Building a character-level language model
-class Network():
+class Network:
 
     def __init__(self, text_file):
 
