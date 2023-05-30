@@ -43,7 +43,7 @@ class App:
             # If the button is pressed, generate names
             if generate_button:
                 # Sample model for names
-                names = self.sample(num_input)
+                names = self.net.sample(num_input)
                 # Format readable names
                 names = [name[:-1].capitalize() for name in names]
                 # Split names into column
@@ -71,30 +71,6 @@ class App:
         unsafe_allow_html=True
         )
         
-    # Sampling from the model
-    def sample(self, num_samples):
-        
-        samples = []
-        for _ in range(num_samples):
-
-            out = []
-            context = [0] * self.net.block_size
-            while True:
-                # Forward pass
-                logits = self.net.model(torch.tensor([context])) # (1, block_size, d)
-                probs = F.softmax(logits, dim = 1)
-                # Sample
-                ix = torch.multinomial(probs, num_samples = 1).item()
-                # Shift the context windows and track the samples
-                context = context[1:] + [ix]
-                out.append(ix)
-                # If we sample a special '.' token, break
-                if ix == 0:
-                    break
-            
-            samples.append(''.join(self.net.itos[i] for i in out))
-        return samples
-
 # Main
 if __name__ == '__main__':
     # Device to GPU if available, else CPU
